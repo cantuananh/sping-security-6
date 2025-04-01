@@ -18,7 +18,10 @@ public class SecurityConfig {
                         .requestMatchers("/products", "/users").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .formLogin(Customizer.withDefaults())
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/home", true)
+                        .permitAll()
+                )
                 .logout(logout -> logout.logoutSuccessUrl("/home"))
                 .exceptionHandling(exception -> exception.accessDeniedPage("/403"));
 
